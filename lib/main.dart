@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
-
 import 'screens/login_screen.dart';
-import 'screens/task_list_screen.dart';
-import 'screens/add_task_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  const applicationId = 'cd0uRAditBGbdJmfO0BwPK0w7u5FNMTBv92ykN8n';
+  const clientKey = 'nDxwb3nprkIWd2c331iaxi4yKtkKHR3QFgvHM5hu';
+  const serverUrl = 'https://parseapi.back4app.com/';
 
-  await Parse().initialize(
-    'YOUR_APP_ID', // Replace with Back4App App ID
-    'https://parseapi.back4app.com',
-    clientKey: 'YOUR_CLIENT_KEY', // Replace with Back4App Client Key
-    autoSendSessionId: true,
-  );
-
-  runApp(const MyApp());
+  await Parse().initialize(applicationId, serverUrl, clientKey: clientKey);
+  runApp(const TaskApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class TaskApp extends StatelessWidget {
+  const TaskApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'QuickTask',
-      initialRoute: '/login',
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        '/tasks': (context) => const TaskListScreen(),
-        '/addTask': (context) => const AddTaskScreen(),
-      },
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const LoginScreen(),
     );
   }
 }
